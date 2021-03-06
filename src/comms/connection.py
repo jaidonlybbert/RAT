@@ -4,6 +4,7 @@
 """Handles communication hosted on the RAT MCU between the RAT and the HMI"""
 
 import socket
+import utime
 
 def connection_init():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,12 +20,13 @@ def main():
     sensor_data = b'ssss' 
     sys_status = b'tttt' 
 
+    time_before_send = utime.ticks_us()
     conn.send(sensor_data) #send back lidar data
     conn.send(sys_status)  #send system status
-
+    print(utime.ticks_diff(utime.ticks_us(), time_before_send))
 
 conn, addr, s = connection_init()
 
-if __name__ == "main":
+if __name__ == '__main__':
     while True:
         main()
