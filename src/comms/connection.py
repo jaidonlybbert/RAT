@@ -9,9 +9,16 @@ import utime
 def connection_init():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('10.0.0.116', 5007))
+    print("socket bound")
     s.listen(1)
     conn, addr = s.accept()
     return conn, addr, s
+
+
+def recv_loop():
+    while 1:
+        controls_packet = conn.recv(2)
+        print(controls_packet)
 
 def main():
     controls_packet = conn.recv(4)    #expect 32 bit packet of control signals
