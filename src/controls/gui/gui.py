@@ -142,7 +142,10 @@ def sendCommand(socket):
     global command
     command_bytes = command.to_bytes(2, 'big')
     socket.sendall(command_bytes)
-
+    sensor_data = socket.recv(4)
+    sys_status = socket.recv(4)
+    print(sensor_data)
+    print(sys_status)
 
 
 def main():
